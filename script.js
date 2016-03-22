@@ -1,36 +1,41 @@
 // Your JS goes here
+
+
+new Audio('busy.mp3').play();
+
+var counter = 0;
+var i = setInterval(function(){
+
+      if (counter>0) {
+        clearBoard();
+      }
+
+      drawBoard();       
+
+       counter++;
+       if(counter === 100) {
+           clearInterval(i);
+       }
+ }, 750);
+
+
+function drawBoard() {
+
 var page = document.getElementsByTagName('body')[0];
-
-for (var i = 0; i <= 62; i++) {
+  for (var i = 0; i <= 62; i++) {
   var div = document.createElement('div');
-
-  div.style.width = '11.1%';
-  div.style.paddingBottom = '11.1%';
-  div.style.float = 'left';
-  
-  if (i % 2 === 0) {
-    div.style.backgroundColor= "rgba(0, 0, 255, " + (0.015 * i) + ")";
-  } 
-
-  else {
-    div.style.backgroundColor = "rgba(255, 255, 0, " + (0.025 * i) + ")";
+    div.style.width = '11.1%';
+    div.style.paddingBottom = '11.1%';
+    div.style.float="left";
+    div.setAttribute("id", i);
+    div.style.backgroundColor= '#'+((1<<24)*(Math.random()+1)|0).toString(16).substr(1);
+    page.appendChild(div);
   }
-
-  page.appendChild(div);
 }
 
-
-// random colors
-//  if (i % 2 === 0) {
-//     div.style.backgroundColor= '#'+((1<<24)*(Math.random()+1)|0).toString(16).substr(1);
-//   } 
-
-//   else {
-//     div.style.backgroundColor = '#'+((1<<24)*(Math.random()+1)|0).toString(16).substr(1);
-//   }
-
-
-// * Each tile should be a `div`
-// * Each tile's width is `11.1%`
-// * Set each tile's `float` property to `left`
-// * Each tile's paddingBottom is `11.1%`
+function clearBoard() {
+  var page = document.getElementsByTagName('body')[0];
+    while (page.firstChild) {
+        page.removeChild(page.firstChild);
+      }
+}
